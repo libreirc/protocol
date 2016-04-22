@@ -42,6 +42,17 @@ RESTful api를 사용하여 로그인을 수행합니다.
 
 `rid`는 `int32` 타입을 가지며, 클라이언트에서 직접 관리(`2147483647`을 넘어가면 `0`부터 다시 시작하는 등의 처리)하면 됩니다.
 
+`rid`가 `int32` 타입이 아니거나(예: `12.34`) 음수값을 가질 경우,
+서버는 `rid`가 `-1`인 응답을 돌려주어야합니다:
+```json
+{
+    "rid": -1,
+    "kind": "error",
+    "type": "invalid_rid",
+    "given_rid": 12.34
+}
+```
+
 (클라이언트가 서버로 보내는) 요청 메세지의 기본 포맷은 다음과 같습니다:
 ```makise
 request is {
@@ -66,11 +77,17 @@ response_kind is (
     'error'
 )
 
-response[kind = 'error'] is {
+response[kind = 'error'] is error_response
+
+error_response is {
     type: error_type
 }
 
-error_type is () // TODO
+error_type is ('invalid_rid')
+
+error_response[type = 'invalid_rid'] is {
+    given_rid: *
+}
 ```
 
 응답이 아닌 경우에, 서버가 클라이언트로 보내는 메세지는 클라이언트가 응답할 의무가 없습니다.
