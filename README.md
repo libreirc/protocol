@@ -1,25 +1,32 @@
-# 프로토콜
+OpenIRC protocol <sup>v0.0.0</sup>
+========
+> *This document is stil work in progress*
 
-이 문서는 openirc에서 서버와 클라이언트가 어떤 것을 얼마나 어떻게 서로 주고받을지를 기술합니다.
+OpenIRC에서 서버와 클라이언트가 어떤 것을 얼마나 어떻게 서로 주고받을지를 기술합니다.
 
+### Table of contents
+1. [방법](#1-방법)
+2. [채팅 메세지 포맷](#2-채팅-메세지-포맷)
+3. [요청/응답 메세지 포맷](#3-요청응답-메세지-포맷)
+4. [서버에서 클라이언트로 보내는 메세지 포맷](#4-서버에서-클라이언트로-보내는-메세지-포맷)
 
-## 방법
+<br>
+
+1. 방법
+--------
 
 ### 로그인
-
 RESTful api를 사용하여 로그인을 수행합니다.
 
-
 ### 채팅 메세지
-
 [웹소켓](http://tools.ietf.org/html/rfc6455)을 통해서 데이터를 주고받습니다.
 
 사용자 계정은 로그인 세션을 통해 정보를 얻을 수 있기 때문에 채팅 메세지에는 사용자 계정정보를 포함할 필요가 없습니다.
 
 로그아웃 돼있을 경우 웹소켓 연결을 맺지 않습니다.
 
-
-## 채팅 메세지 포맷
+2. 채팅 메세지 포맷
+--------
 
 [메세지팩](http://msgpack.org/index.html)을 사용합니다.
 
@@ -63,7 +70,7 @@ response[kind = 'error'] is {
     type: error_type
 }
 
-error_type is () // todo
+error_type is () // TODO
 ```
 
 응답이 아닌 경우에, 서버가 클라이언트로 보내는 메세지는 클라이언트가 응답할 의무가 없습니다.
@@ -74,11 +81,11 @@ message is {
     kind: message_kind
 }
 
-message_kind is () // todo
+message_kind is () // TODO
 ```
 
-## 요청/응답 메세지 포맷
-
+3. 요청/응답 메세지 포맷
+--------
 ```makise
 target is {
     kind: ('channel', 'user'),
@@ -103,6 +110,7 @@ request[kind = 'message'] is {
 ```
 
 
-## 서버에서 클라이언트로 보내는 메세지 포맷
+4. 서버에서 클라이언트로 보내는 메세지 포맷
+--------
 
-WIP
+**TODO**
