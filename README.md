@@ -1,6 +1,6 @@
 OpenIRC protocol <sup>v0.0.0</sup>
 ========
-> ***Note:** This document is stil work in progress*
+> *This document is stil work in progress*
 
 OpenIRC에서 서버와 클라이언트가 어떤 것을 얼마나 어떻게 서로 주고받을지를 기술합니다.
 
