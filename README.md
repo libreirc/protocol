@@ -48,8 +48,18 @@ RESTful api를 사용하여 로그인을 수행합니다.
 {
     "rid": -1,
     "kind": "error",
-    "type": "invalid_rid",
-    "given_rid": 12.34
+    "list": [
+        {
+            "kind": "invalid_rid",
+            "given_rid": 12.34
+        },
+        {
+            "kind": "invalid_type",
+            "context": "rid",
+            "given_type": "number",
+            "required_type": "int32"
+        }
+    ]
 }
 ```
 
@@ -77,16 +87,22 @@ response_kind is (
     'error'
 )
 
-response[kind = 'error'] is error_response
-
-error_response is {
-    type: error_type
+response[kind = 'error'] is {
+    list: [error]
 }
 
-error_type is ('invalid_rid')
+error is {
+    kind: ('invalid_rid', 'invalid_type')
+}
 
-error_response[type = 'invalid_rid'] is {
+error[kind = 'invalid_rid'] is {
     given_rid: *
+}
+
+error[kind = 'invalid_type'] is {
+    context: string, // 'key.array["0"].key2'...
+    given_type: string,
+    required_type: string
 }
 ```
 
