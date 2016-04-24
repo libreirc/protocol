@@ -47,12 +47,9 @@ RESTful api를 사용하여 로그인을 수행합니다.
 ```json
 {
     "rid": -1,
+    "given_rid": 12.34,
     "kind": "error",
     "list": [
-        {
-            "kind": "invalid_rid",
-            "given_rid": 12.34
-        },
         {
             "kind": "invalid_type",
             "context": "rid",
@@ -87,16 +84,16 @@ response_kind is (
     'error'
 )
 
+response[rid = -1] is {
+    given_rid: *
+}
+
 response[kind = 'error'] is {
     list: [error]
 }
 
 error is {
-    kind: ('invalid_rid', 'invalid_type')
-}
-
-error[kind = 'invalid_rid'] is {
-    given_rid: *
+    kind: ('invalid_type')
 }
 
 error[kind = 'invalid_type'] is {
